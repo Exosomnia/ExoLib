@@ -1,0 +1,46 @@
+package com.exosomnia.exolib.particles;
+
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+
+public class GridParticle extends TextureSheetParticle {
+    protected GridParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
+        super(level, x, y, z);
+        this.lifetime = 40;
+
+        this.xd = xd + (Math.random()-0.5)/100;
+        this.yd = yd + (Math.random()-0.5)/100;
+        this.zd = zd + (Math.random()-0.5)/100;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.alpha -= .025;
+    }
+
+    @Override
+    public @NotNull ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static class Provider implements ParticleProvider<GridParticleOptions> {
+        private final SpriteSet sprite;
+
+        public Provider(SpriteSet sprite) {
+            this.sprite = sprite;
+        }
+
+        public Particle createParticle(GridParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
+            GridParticle area = new GridParticle(level, x, y, z, vx, vy, vz);
+            area.pickSprite(this.sprite);
+            area.setColor(options.red, options.green, options.blue);
+            area.quadSize = options.scale;
+            return area;
+        }
+    }
+}
