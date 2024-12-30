@@ -17,18 +17,6 @@ public class TestEvent {
     public static void killed(LivingDeathEvent event) {
         Entity killer = event.getSource().getEntity();
         if (killer != null && !killer.level().isClientSide) {
-                ParticleUtils.sendParticlesShaped(new SpiralParticleOptions(1.0F, 0.5F, 0.0F, 0.15F),
-                        event.getEntity().level(),
-                        event.getEntity().getPosition(1.0F),
-                        1.5,
-                        48);
-                ((ServerLevel) killer.level()).sendParticles(ParticleTypes.FLAME,
-                        event.getEntity().getX(),
-                        event.getEntity().getEyeY(),
-                        event.getEntity().getZ(),
-                        20,
-                        0,0,0,
-                        0.035);
         }
     }
 }

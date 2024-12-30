@@ -1,13 +1,13 @@
 package com.exosomnia.exolib.particles.utils;
 
 import com.exosomnia.exolib.particles.shapes.ParticleShapeSphere;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.server.level.ServerLevel;
 
 public class ParticleUtils {
 
-    public static <T extends ParticleOptions> void sendParticlesShaped(T particle, Level level, Vec3 origin, double radius, int count) {
-        new ParticleShapeSphere(particle, level, origin, radius, count).generate();
+    public static <T extends ParticleOptions> void sendParticlesShaped(T particle, BlockPos origin, ServerLevel level, double radius, int count) {
+        new ParticleShapeSphere(particle, origin, radius, count).sendToAll(level);
     }
 }
