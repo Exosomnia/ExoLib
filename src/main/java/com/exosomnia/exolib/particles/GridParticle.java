@@ -20,7 +20,7 @@ public class GridParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-        this.alpha -= .025;
+        this.alpha -= .025F;
     }
 
     @Override

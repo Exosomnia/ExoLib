@@ -4,11 +4,9 @@ import com.exosomnia.exolib.networking.PacketHandler;
 import com.exosomnia.exolib.networking.packets.ParticleShapePacket;
 import com.mojang.serialization.Codec;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;

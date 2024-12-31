@@ -24,8 +24,8 @@ public class SparkleParticle extends SimpleAnimatedParticle {
         super.tick();
         this.setSprite(sprites.get((this.age * 2) % this.lifetime, this.lifetime));
 //        this.alpha -= .025;
-        this.roll += 0.075;
-        this.oRoll += 0.075;
+        this.roll += 0.075F;
+        this.oRoll += 0.075F;
     }
 
     @Override

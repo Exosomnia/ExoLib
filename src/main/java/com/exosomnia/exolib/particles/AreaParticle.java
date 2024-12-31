@@ -8,15 +8,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class AreaParticle extends TextureSheetParticle {
-    protected AreaParticle(ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
+    protected AreaParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
         super(level, x, y, z);
         this.lifetime = 40;
+
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.alpha -= .025;
+        this.alpha -= .025F;
     }
 
     @Override

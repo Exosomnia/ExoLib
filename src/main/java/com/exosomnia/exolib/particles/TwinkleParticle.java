@@ -23,8 +23,8 @@ public class TwinkleParticle extends SimpleAnimatedParticle {
     public void tick() {
         super.tick();
 //      this.alpha -= .025;
-        this.roll += 0.125;
-        this.oRoll += 0.125;
+        this.roll += 0.125F;
+        this.oRoll += 0.125F;
     }
 
     @Override

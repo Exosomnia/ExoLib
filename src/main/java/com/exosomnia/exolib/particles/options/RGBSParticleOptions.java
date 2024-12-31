@@ -1,6 +1,5 @@
 package com.exosomnia.exolib.particles.options;
 
-import com.exosomnia.exolib.ExoLib;
 import com.mojang.brigadier.StringReader;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,8 +8,6 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
 
 public class RGBSParticleOptions implements ParticleOptions {
 

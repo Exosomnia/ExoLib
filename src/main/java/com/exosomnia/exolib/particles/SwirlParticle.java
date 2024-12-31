@@ -20,9 +20,9 @@ public class SwirlParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         super.tick();
-        this.alpha -= .02;
-        this.roll += 0.15;
-        this.oRoll += 0.15;
+        this.alpha -= .02F;
+        this.roll += 0.15F;
+        this.oRoll += 0.15F;
     }
 
     @Override
