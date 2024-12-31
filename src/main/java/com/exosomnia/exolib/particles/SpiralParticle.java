@@ -1,5 +1,6 @@
 package com.exosomnia.exolib.particles;
 
+import com.exosomnia.exolib.particles.options.RGBSParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -11,16 +12,17 @@ public class SpiralParticle extends TextureSheetParticle {
         super(level, x, y, z);
         this.lifetime = 40;
 
-        this.xd = xd + (Math.random()-0.5)/100;
-        this.yd = yd + (Math.random()-0.5)/100;
-        this.zd = zd + (Math.random()-0.5)/100;
+        this.xd = xd + (Math.random() % 0.01) - 0.005;
+        this.yd = yd + (Math.random() % 0.01) - 0.005;
+        this.zd = zd + (Math.random() % 0.01) - 0.005;
     }
 
     @Override
     public void tick() {
         super.tick();
         this.alpha -= .025;
-        this.roll += 1;
+        this.roll += 0.075;
+        this.oRoll += 0.075;
     }
 
     @Override
@@ -29,14 +31,14 @@ public class SpiralParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SpiralParticleOptions> {
+    public static class Provider implements ParticleProvider<RGBSParticleOptions> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet sprite) {
             this.sprite = sprite;
         }
 
-        public Particle createParticle(SpiralParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
+        public Particle createParticle(RGBSParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
             SpiralParticle spiral = new SpiralParticle(level, x, y, z, vx, vy, vz);
             spiral.pickSprite(this.sprite);
             spiral.setColor(options.red, options.green, options.blue);

@@ -6,20 +6,20 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.phys.Vec3;
 
-public class ParticleShapeSphere extends ParticleShape {
+public class ParticleShapeRing extends ParticleShape {
 
-    public final static Codec<ParticleShapeOptions.Sphere> OPTIONS_CODEC = RecordCodecBuilder.create(sphereInstance ->
+    public final static Codec<ParticleShapeOptions.Ring> OPTIONS_CODEC = RecordCodecBuilder.create(sphereInstance ->
         sphereInstance.group(
             Codec.FLOAT.fieldOf("radius").forGetter(options -> options.radius),
             Codec.INT.fieldOf("count").forGetter(options -> options.count))
-            .apply(sphereInstance, ParticleShapeOptions.Sphere::new)
+            .apply(sphereInstance, ParticleShapeOptions.Ring::new)
     );
 
-    private final double GOLDEN_ANGLE = 2.39996322972865332; //pi * (3 - sqrt(5))
+    private final double TAU = 6.283185307179586; //2pi
 
-    public ParticleShapeSphere(ParticleOptions particle, Vec3 origin, ParticleShapeOptions.Sphere options) {
+    public ParticleShapeRing(ParticleOptions particle, Vec3 origin, ParticleShapeOptions.Ring options) {
         super(particle, origin, options);
-        this.shapeType = Shapes.SPHERE;
+        this.shapeType = Shapes.RING;
     }
 
     @Override
@@ -29,20 +29,21 @@ public class ParticleShapeSphere extends ParticleShape {
 
     @Override
     public void playOnClient(ClientLevel level) {
-        ParticleShapeOptions.Sphere options = (ParticleShapeOptions.Sphere)this.options;
+        ParticleShapeOptions.Ring options = (ParticleShapeOptions.Ring)this.options;
         float radius = options.radius;
         int count = options.count;
 
+        double theta = 0;
+        double thetaStep = TAU/count;
+
         for (int i = 0; i < count; i++) {
-            double theta = GOLDEN_ANGLE * i;
-            double y = 1.0 - (i / (double)(count - 1)) * 2.0;
-            double radiusAtY = Math.sqrt(1.0 - y * y);
-            double x = Math.cos(theta) * radiusAtY;
-            double z = Math.sin(theta) * radiusAtY;
+            theta += thetaStep;
+            double x = Math.cos(theta);
+            double z = Math.sin(theta);
 
             level.addParticle(particle,
                     origin.x + x * radius,
-                    origin.y + y * radius,
+                    origin.y + .5,
                     origin.z + z * radius,
                     0, 0, 0);
         }

@@ -1,5 +1,6 @@
 package com.exosomnia.exolib.particles;
 
+import com.exosomnia.exolib.particles.options.RGBSParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,14 +25,14 @@ public class AreaParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<AreaParticleOptions> {
+    public static class Provider implements ParticleProvider<RGBSParticleOptions> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet sprite) {
             this.sprite = sprite;
         }
 
-        public Particle createParticle(AreaParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
+        public Particle createParticle(RGBSParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
             AreaParticle area = new AreaParticle(level, x, y, z, vx, vy, vz);
             area.pickSprite(this.sprite);
             area.setColor(options.red, options.green, options.blue);

@@ -6,20 +6,20 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.phys.Vec3;
 
-public class ParticleShapeSphere extends ParticleShape {
+public class ParticleShapeDome extends ParticleShape {
 
-    public final static Codec<ParticleShapeOptions.Sphere> OPTIONS_CODEC = RecordCodecBuilder.create(sphereInstance ->
+    public final static Codec<ParticleShapeOptions.Dome> OPTIONS_CODEC = RecordCodecBuilder.create(sphereInstance ->
         sphereInstance.group(
             Codec.FLOAT.fieldOf("radius").forGetter(options -> options.radius),
             Codec.INT.fieldOf("count").forGetter(options -> options.count))
-            .apply(sphereInstance, ParticleShapeOptions.Sphere::new)
+            .apply(sphereInstance, ParticleShapeOptions.Dome::new)
     );
 
     private final double GOLDEN_ANGLE = 2.39996322972865332; //pi * (3 - sqrt(5))
 
-    public ParticleShapeSphere(ParticleOptions particle, Vec3 origin, ParticleShapeOptions.Sphere options) {
+    public ParticleShapeDome(ParticleOptions particle, Vec3 origin, ParticleShapeOptions.Dome options) {
         super(particle, origin, options);
-        this.shapeType = Shapes.SPHERE;
+        this.shapeType = Shapes.DOME;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class ParticleShapeSphere extends ParticleShape {
 
     @Override
     public void playOnClient(ClientLevel level) {
-        ParticleShapeOptions.Sphere options = (ParticleShapeOptions.Sphere)this.options;
+        ParticleShapeOptions.Dome options = (ParticleShapeOptions.Dome)this.options;
         float radius = options.radius;
         int count = options.count;
 
         for (int i = 0; i < count; i++) {
             double theta = GOLDEN_ANGLE * i;
-            double y = 1.0 - (i / (double)(count - 1)) * 2.0;
+            double y = 1.0 - (i / (double)(count - 1));
             double radiusAtY = Math.sqrt(1.0 - y * y);
             double x = Math.cos(theta) * radiusAtY;
             double z = Math.sin(theta) * radiusAtY;

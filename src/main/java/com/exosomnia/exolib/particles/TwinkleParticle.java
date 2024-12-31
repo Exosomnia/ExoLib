@@ -7,20 +7,24 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class GridParticle extends TextureSheetParticle {
-    protected GridParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
-        super(level, x, y, z);
-        this.lifetime = 40;
+public class TwinkleParticle extends SimpleAnimatedParticle {
+    protected TwinkleParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, SpriteSet sprites) {
+        super(level, x, y, z, sprites, 0.015F);
+        this.lifetime = 20;
 
         this.xd = xd + (Math.random() % 0.01) - 0.005;
         this.yd = yd + (Math.random() % 0.01) - 0.005;
         this.zd = zd + (Math.random() % 0.01) - 0.005;
+
+        this.setSpriteFromAge(sprites);
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.alpha -= .025;
+//      this.alpha -= .025;
+        this.roll += 0.125;
+        this.oRoll += 0.125;
     }
 
     @Override
@@ -30,18 +34,17 @@ public class GridParticle extends TextureSheetParticle {
 
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<RGBSParticleOptions> {
-        private final SpriteSet sprite;
+        private final SpriteSet sprites;
 
-        public Provider(SpriteSet sprite) {
-            this.sprite = sprite;
+        public Provider(SpriteSet sprites) {
+            this.sprites = sprites;
         }
 
         public Particle createParticle(RGBSParticleOptions options, ClientLevel level, double x, double y, double z, double vx, double vy, double vz) {
-            GridParticle area = new GridParticle(level, x, y, z, vx, vy, vz);
-            area.pickSprite(this.sprite);
-            area.setColor(options.red, options.green, options.blue);
-            area.quadSize = options.scale;
-            return area;
+            TwinkleParticle sparkle = new TwinkleParticle(level, x, y, z, vx, vy, vz, this.sprites);
+            sparkle.setColor(options.red, options.green, options.blue);
+            sparkle.quadSize = options.scale;
+            return sparkle;
         }
     }
 }
