@@ -29,7 +29,8 @@ public class PlayerCapabilitiesEventHandler {
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
-            event.addCapability(new ResourceLocation(ExoLib.MODID, "persistent_playerdata"), new PersistentPlayerDataProvider());
+
+            event.addCapability(ResourceLocation.fromNamespaceAndPath(ExoLib.MODID, "persistent_playerdata"), new PersistentPlayerDataProvider());
         }
     }
 }

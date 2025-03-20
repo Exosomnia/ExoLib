@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "entries": [
+    "exolib:structure_loot_mod",
+    "exolib:biome_loot_mod",
+    "exolib:global_loot_mod"
+  ]
+}

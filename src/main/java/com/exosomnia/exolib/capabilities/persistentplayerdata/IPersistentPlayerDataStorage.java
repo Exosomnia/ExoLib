@@ -7,6 +7,8 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IPersistentPlayerDataStorage extends INBTSerializable<CompoundTag> {
 
+    void addWrapper(PersistentPlayerDataWrapper wrapper);
+    void removeWrapper(PersistentPlayerDataWrapper wrapper);
     void set(CompoundTag tag);
     CompoundTag get();
     void clear();

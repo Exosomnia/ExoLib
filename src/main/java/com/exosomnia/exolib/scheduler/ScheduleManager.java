@@ -18,13 +18,13 @@ public class ScheduleManager {
     }
 
     public void scheduleAction(ScheduledAction action, int ticks) {
-        action.scheduleFor(tickCount + ticks);
+        action.scheduleFor(this, tickCount + ticks);
         ACTION_SCHEDULE.add(action);
     }
 
     private static class ScheduledComparator implements Comparator<ScheduledAction> {
         public int compare(ScheduledAction actionLeft, ScheduledAction actionRight) {
-            return actionLeft.scheduledTick = actionRight.scheduledTick;
+            return Integer.compare(actionLeft.scheduledTick, actionRight.scheduledTick);
         }
     }
 }

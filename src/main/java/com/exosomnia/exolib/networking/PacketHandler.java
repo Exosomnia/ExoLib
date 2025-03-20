@@ -13,7 +13,7 @@ public class PacketHandler {
 
     private static final String PROTOCOL_VERSION = "1";
     private static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(ExoLib.MODID, "main"),
+            ResourceLocation.fromNamespaceAndPath(ExoLib.MODID, "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals

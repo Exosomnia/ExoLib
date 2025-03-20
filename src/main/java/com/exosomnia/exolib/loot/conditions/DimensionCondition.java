@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,7 +20,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -92,9 +90,9 @@ public class DimensionCondition implements LootItemCondition {
         @Override
         public DimensionCondition deserialize(JsonObject object, JsonDeserializationContext context) {
             ResourceKey<Level> dimension = object.has("dimension") ? ResourceKey.create(Registries.DIMENSION,
-                    ResourceLocation.of(GsonHelper.getAsString(object, "dimension"), ':')) : null;
+                    ResourceLocation.bySeparator(GsonHelper.getAsString(object, "dimension"), ':')) : null;
             ResourceKey<Biome> biome = object.has("biome") ? ResourceKey.create(Registries.BIOME,
-                    ResourceLocation.of(GsonHelper.getAsString(object, "biome"), ':')) : null;
+                    ResourceLocation.bySeparator(GsonHelper.getAsString(object, "biome"), ':')) : null;
             return new DimensionCondition(dimension, biome);
         }
     }

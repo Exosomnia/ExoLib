@@ -34,7 +34,7 @@ public class SyncedTag {
 
     private static CompletableFuture<Suggestions> suggestOperation(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
         for (String operation : VALID_OPERATIONS) {
-            if (operation.startsWith(builder.getRemaining().toLowerCase())) { builder.suggest(operation); };
+            if (operation.startsWith(builder.getRemaining().toLowerCase())) { builder.suggest(operation); }
         }
         return builder.buildFuture();
     }
