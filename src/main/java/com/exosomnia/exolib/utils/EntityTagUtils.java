@@ -11,8 +11,6 @@ public class EntityTagUtils {
      * @param player The player to sync tags on
      */
     public static void syncTags(ServerPlayer player) {
-        for (String tag : player.getTags()) {
-            PacketHandler.sendToPlayer(new TagUpdatePacket(tag, true), player);
-        }
+        PacketHandler.sendToPlayer(new TagUpdatePacket(player.getTags()), player);
     }
 }

@@ -41,7 +41,7 @@ public class MobCategoryCondition implements LootItemCondition {
     }
 
     public Set<LootContextParam<?>> getReferencedContextParams() {
-        return ImmutableSet.of(this.entityTarget.getParam());
+        return ImmutableSet.of(entityTarget.getParam());
     }
 
     @Override

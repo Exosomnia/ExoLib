@@ -14,6 +14,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class SyncedTag {
@@ -41,10 +42,11 @@ public class SyncedTag {
 
     private static int execute(CommandSourceStack sourceStack, ServerPlayer player, String operation, String tag) {
         String playerName = player.getName().getString();
+        Set<String> playerTags = player.getTags();
         switch (operation.toLowerCase()) {
             case "add":
-                if (player.getTags().add(tag)) {
-                    PacketHandler.sendToPlayer(new TagUpdatePacket(tag, true), player);
+                if (playerTags.add(tag)) {
+                    PacketHandler.sendToPlayer(new TagUpdatePacket(playerTags), player);
                     sourceStack.sendSuccess(() -> {
                         return Component.literal(String.format("Successfully applied the tag %1$s to %2$s", tag, playerName));
                     }, false);
@@ -53,8 +55,8 @@ public class SyncedTag {
                 sourceStack.sendFailure(Component.literal(String.format("Was unable to apply the tag %1$s to %2$s", tag, playerName)));
                 break;
             case "remove":
-                if (player.getTags().remove(tag)) {
-                    PacketHandler.sendToPlayer(new TagUpdatePacket(tag, false), player);
+                if (playerTags.remove(tag)) {
+                    PacketHandler.sendToPlayer(new TagUpdatePacket(playerTags), player);
                     sourceStack.sendSuccess(() -> {
                         return Component.literal(String.format("Successfully removed the tag %1$s from %2$s", tag, playerName));
                     }, false);

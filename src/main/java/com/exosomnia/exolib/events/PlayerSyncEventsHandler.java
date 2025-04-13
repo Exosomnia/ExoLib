@@ -8,10 +8,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ExoLib.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class PlayerLoggedEventHandler {
+public class PlayerSyncEventsHandler {
 
     @SubscribeEvent
     public static void loggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        EntityTagUtils.syncTags((ServerPlayer)event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void changeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         EntityTagUtils.syncTags((ServerPlayer)event.getEntity());
     }
 }

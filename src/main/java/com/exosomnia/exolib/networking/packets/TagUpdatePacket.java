@@ -1,31 +1,37 @@
 package com.exosomnia.exolib.networking.packets;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class TagUpdatePacket {
 
-    private String tag = "";
-    private boolean present = false;
+    private Set<String> tags;
 
-    public TagUpdatePacket(String tag, boolean present) {
-        this.tag = tag;
-        this.present = present;
+    public TagUpdatePacket(Set<String> tags) {
+        this.tags = tags;
     }
 
     public TagUpdatePacket(FriendlyByteBuf buffer) {
-        tag = buffer.readUtf();
-        present = buffer.readBoolean();
+        int tagCount = buffer.readInt();
+        ImmutableSet.Builder<String> builder = new ImmutableSet.Builder<>();
+        for (int i = 0; i < tagCount; i++) {
+            builder.add(buffer.readUtf());
+        }
+        tags = builder.build();
     }
 
     public static void encode(TagUpdatePacket packet, FriendlyByteBuf buffer) {
-        buffer.writeUtf(packet.tag);
-        buffer.writeBoolean(packet.present);
+        int tagCount = packet.tags.size();
+        buffer.writeInt(tagCount);
+        packet.tags.forEach(buffer::writeUtf);
     }
 
     public static void handle(TagUpdatePacket packet, Supplier<NetworkEvent.Context> context) {
@@ -33,8 +39,11 @@ public class TagUpdatePacket {
             NetworkDirection packetDirection = context.get().getDirection();
             if (packetDirection.equals(NetworkDirection.PLAY_TO_CLIENT)) {
                 LocalPlayer player = Minecraft.getInstance().player;
-                if (packet.present) { player.getTags().add(packet.tag); }
-                else { player.getTags().remove(packet.tag); }
+                if (player == null) return;
+
+                Set<String> tags = player.getTags();
+                tags.clear();
+                tags.addAll(packet.tags);
             }
         });
         context.get().setPacketHandled(true);

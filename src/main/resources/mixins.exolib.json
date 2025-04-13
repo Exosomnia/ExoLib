@@ -11,7 +11,8 @@
     "LootParamsBuilderMixin",
     "LootTableMixin",
     "LootPoolAccessor",
-    "LootPoolSingletonContainerAccessor"
+    "LootPoolSingletonContainerAccessor",
+    "LivingEntityMixin"
   ],
   "client": [],
   "server": [],
