@@ -1,8 +1,6 @@
 {
-  "structure_injects": {
-    "structures": [
-      "#minecraft:pillager_outpost"
-    ],
+  "_comment": "This inject runs anytime the specific loot cause happens.",
+  "global_injects": {
     "cause": "minecraft:entity"
   },
   "pools": [

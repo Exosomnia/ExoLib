@@ -1,11 +1,11 @@
 {
-  "_comment": "This inject runs everytime the loot cause occurs in the specified structures.",
-  "structure_injects": {
-    "structures": [
+  "_comment": "This inject runs everytime the loot cause occurs in the specified biomes.",
+  "biome_injects": {
+    "biomes": [
       "#namespace:tag",
       "namespace:path"
     ],
-    "cause": "minecraft:chest"
+    "cause": "minecraft:block"
   },
   "pools": [
     {

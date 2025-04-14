@@ -1,4 +1,5 @@
 {
+  "_comment": "This inject adds additional entries into the specified loot pool and adjusts the weight of existing entries.",
   "pool_injects": [
     {
       "table": "minecraft:blocks/dirt",

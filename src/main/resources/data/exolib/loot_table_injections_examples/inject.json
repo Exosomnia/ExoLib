@@ -1,4 +1,5 @@
 {
+  "_comment": "This inject runs everytime the specific loot tables are generated from.",
   "injects": [
     "minecraft:blocks/dirt",
     "minecraft:blocks/grass_block",
