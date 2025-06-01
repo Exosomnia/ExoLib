@@ -2,6 +2,7 @@ package com.exosomnia.exolib.networking;
 
 import com.exosomnia.exolib.ExoLib;
 import com.exosomnia.exolib.networking.packets.ParticleShapePacket;
+import com.exosomnia.exolib.networking.packets.SynchronizeConfigPacket;
 import com.exosomnia.exolib.networking.packets.TagUpdatePacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +25,7 @@ public class PacketHandler {
 
         INSTANCE.registerMessage(id++, TagUpdatePacket.class, TagUpdatePacket::encode, TagUpdatePacket::new, TagUpdatePacket::handle);
         INSTANCE.registerMessage(id++, ParticleShapePacket.class, ParticleShapePacket::encode, ParticleShapePacket::new, ParticleShapePacket::handle);
+        INSTANCE.registerMessage(id++, SynchronizeConfigPacket.class, SynchronizeConfigPacket::encode, SynchronizeConfigPacket::new, SynchronizeConfigPacket::handle);
     }
 
     public static void sendToPlayer(Object packet, ServerPlayer player) {

@@ -15,7 +15,9 @@ public class PersistentPlayerDataStorage implements IPersistentPlayerDataStorage
     }
 
     public void set(CompoundTag tag) { this.tag = tag; }
+
     public CompoundTag get() { return this.tag; }
+
     public void clear() { this.tag = new CompoundTag(); }
 
     @Override
@@ -35,5 +37,10 @@ public class PersistentPlayerDataStorage implements IPersistentPlayerDataStorage
     @Override
     public void removeWrapper(PersistentPlayerDataWrapper wrapper) {
         wrappers.remove(wrapper);
+    }
+
+    @Override
+    public List<PersistentPlayerDataWrapper> getWrappers() {
+        return wrappers;
     }
 }

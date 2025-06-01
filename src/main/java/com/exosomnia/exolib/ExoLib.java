@@ -1,5 +1,6 @@
 package com.exosomnia.exolib;
 
+import com.exosomnia.exolib.config.ConfigSynchronizer;
 import com.exosomnia.exolib.scheduler.ScheduleManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -15,12 +16,15 @@ public class ExoLib
     public static final String MODID = "exolib";
     public static final Registry REGISTRY = new Registry();
     public static final ScheduleManager SERVER_SCHEDULE_MANAGER = new ScheduleManager();
+    public static ConfigSynchronizer CONFIG_SYNCHRONIZER = new ConfigSynchronizer();
 
     public ExoLib()
     {
         REGISTRY.registerCommon();
         REGISTRY.registerObjects(FMLJavaModLoadingContext.get().getModEventBus());
+
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(CONFIG_SYNCHRONIZER);
     }
 
     @SubscribeEvent

@@ -2,6 +2,7 @@ package com.exosomnia.exolib.events;
 
 import com.exosomnia.exolib.ExoLib;
 import com.exosomnia.exolib.capabilities.persistentplayerdata.PersistentPlayerDataProvider;
+import com.exosomnia.exolib.capabilities.persistentplayerdata.PersistentPlayerDataWrapper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -15,15 +16,16 @@ public class PlayerCapabilitiesEventHandler {
 
     @SubscribeEvent
     public static void clone(PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
-            event.getOriginal().reviveCaps();
-            event.getOriginal().getCapability(PersistentPlayerDataProvider.PLAYER_DATA).ifPresent(playerData -> {
-                event.getEntity().getCapability(PersistentPlayerDataProvider.PLAYER_DATA).ifPresent(newPlayerData -> {
-                    newPlayerData.set(playerData.get());
-                });
+        event.getOriginal().reviveCaps();
+        event.getOriginal().getCapability(PersistentPlayerDataProvider.PLAYER_DATA).ifPresent(playerData -> {
+            event.getEntity().getCapability(PersistentPlayerDataProvider.PLAYER_DATA).ifPresent(newPlayerData -> {
+                newPlayerData.set(playerData.get());
+                for (PersistentPlayerDataWrapper wrapper : playerData.getWrappers()) {
+                    newPlayerData.addWrapper(wrapper);
+                }
             });
-            event.getOriginal().invalidateCaps();
-        }
+        });
+        event.getOriginal().invalidateCaps();
     }
 
     @SubscribeEvent
