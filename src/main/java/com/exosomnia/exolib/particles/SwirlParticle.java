@@ -12,9 +12,9 @@ public class SwirlParticle extends TextureSheetParticle {
         super(level, x, y, z);
         this.lifetime = 50;
 
-        this.xd = xd + (Math.random() % 0.01) - 0.005;
-        this.yd = yd + (Math.random() % 0.01) - 0.005;
-        this.zd = zd + (Math.random() % 0.01) - 0.005;
+        this.xd = xd + (Math.random() % 0.005) - 0.0025;
+        this.yd = yd + (Math.random() % 0.005) - 0.0025;
+        this.zd = zd + (Math.random() % 0.005) - 0.0025;
     }
 
     @Override

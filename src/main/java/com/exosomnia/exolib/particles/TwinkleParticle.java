@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class TwinkleParticle extends SimpleAnimatedParticle {
     protected TwinkleParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd, SpriteSet sprites) {
-        super(level, x, y, z, sprites, 0.015F);
+        super(level, x, y, z, sprites, 0.010F);
         this.lifetime = 20;
 
-        this.xd = xd + (Math.random() % 0.01) - 0.005;
-        this.yd = yd + (Math.random() % 0.01) - 0.005;
-        this.zd = zd + (Math.random() % 0.01) - 0.005;
+        this.xd = xd + (Math.random() % 0.005) - 0.0025;
+        this.yd = yd + (Math.random() % 0.005) - 0.0025;
+        this.zd = zd + (Math.random() % 0.005) - 0.0025;
 
         this.setSpriteFromAge(sprites);
     }

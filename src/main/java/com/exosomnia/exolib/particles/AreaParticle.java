@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class AreaParticle extends TextureSheetParticle {
     protected AreaParticle(ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
         super(level, x, y, z);
-        this.lifetime = 40;
+        this.lifetime = 30;
 
         this.xd = xd;
         this.yd = yd;
