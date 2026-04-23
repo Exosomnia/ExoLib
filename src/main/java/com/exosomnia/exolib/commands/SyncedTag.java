@@ -46,7 +46,7 @@ public class SyncedTag {
         switch (operation.toLowerCase()) {
             case "add":
                 if (playerTags.add(tag)) {
-                    PacketHandler.sendToPlayer(new TagUpdatePacket(playerTags), player);
+                    PacketHandler.sendToPlayer(player, new TagUpdatePacket(playerTags));
                     sourceStack.sendSuccess(() -> {
                         return Component.literal(String.format("Successfully applied the tag %1$s to %2$s", tag, playerName));
                     }, false);
@@ -56,7 +56,7 @@ public class SyncedTag {
                 break;
             case "remove":
                 if (playerTags.remove(tag)) {
-                    PacketHandler.sendToPlayer(new TagUpdatePacket(playerTags), player);
+                    PacketHandler.sendToPlayer(player, new TagUpdatePacket(playerTags));
                     sourceStack.sendSuccess(() -> {
                         return Component.literal(String.format("Successfully removed the tag %1$s from %2$s", tag, playerName));
                     }, false);

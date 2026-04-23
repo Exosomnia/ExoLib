@@ -1,10 +1,14 @@
 package com.exosomnia.exolib.loot.conditions;
 
 import com.exosomnia.exolib.ExoLib;
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +29,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Set;
 
 public class DimensionCondition implements LootItemCondition {
+
+    public static final Supplier<MapCodec<DimensionCondition>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(c -> c.dimension),
+                    ResourceKey.codec(Registries.BIOME).fieldOf("biome").forGetter(c -> c.biome)
+            ).apply(instance, DimensionCondition::new))
+    );
 
     @Nullable
     private ResourceKey<Level> dimension;
@@ -75,24 +86,6 @@ public class DimensionCondition implements LootItemCondition {
         }
 
         public LootItemCondition build() {
-            return new DimensionCondition(dimension, biome);
-        }
-    }
-
-    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<DimensionCondition> {
-
-        @Override
-        public void serialize(JsonObject object, DimensionCondition condition, JsonSerializationContext context) {
-            object.add("dimension", context.serialize(condition.dimension.location().getNamespace()));
-            object.add("biome", context.serialize(condition.biome.location().getNamespace()));
-        }
-
-        @Override
-        public DimensionCondition deserialize(JsonObject object, JsonDeserializationContext context) {
-            ResourceKey<Level> dimension = object.has("dimension") ? ResourceKey.create(Registries.DIMENSION,
-                    ResourceLocation.bySeparator(GsonHelper.getAsString(object, "dimension"), ':')) : null;
-            ResourceKey<Biome> biome = object.has("biome") ? ResourceKey.create(Registries.BIOME,
-                    ResourceLocation.bySeparator(GsonHelper.getAsString(object, "biome"), ':')) : null;
             return new DimensionCondition(dimension, biome);
         }
     }

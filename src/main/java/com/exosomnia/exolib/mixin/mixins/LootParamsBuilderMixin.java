@@ -12,8 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LootParams.Builder.class)
 public abstract class LootParamsBuilderMixin {
 
+    private static final LootContextParamSets LCPSStaticAccessor = new LootContextParamSets();
+
     @Inject(method = "create", at = @At("RETURN"), cancellable = false)
     private void createInject(LootContextParamSet lootContextParamSet, CallbackInfoReturnable<LootParams> ci) {
-        ((ILootParamsMixin)ci.getReturnValue()).setCause(LootContextParamSets.getKey(lootContextParamSet));
+        ((ILootParamsMixin)ci.getReturnValue()).setCause(((LootContextParamSetsAccessor)LCPSStaticAccessor).getRegistry().inverse().get(lootContextParamSet));
     }
 }

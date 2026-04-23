@@ -1,9 +1,7 @@
 package com.exosomnia.exolib.capabilities.persistentplayerdata;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import java.util.List;
 

@@ -6,42 +6,32 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-public class GlobalLootModifier extends LootModifier {
+public class GlobalLootModifier implements IGlobalLootModifier {
 
-    public static final Supplier<Codec<GlobalLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(codec -> codecStart(codec).apply(codec, GlobalLootModifier::new)));
+    public static final Supplier<MapCodec<GlobalLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> instance.point(new GlobalLootModifier())));
     public static HashMap<ResourceLocation, List<LootPool>> lootModifiers = new HashMap<>();
 
     private static final ImmutableSet<ResourceLocation> BLACKLIST_TABLES = ImmutableSet.of(ResourceLocation.fromNamespaceAndPath("botania", "elementium_axe_beheading"));
 
-    public GlobalLootModifier(LootItemCondition[] conditions) {
-        super(new LootItemCondition[0]);
-    }
+    public GlobalLootModifier() {}
 
     public static void setModifiers(HashMap<ResourceLocation, List<LootPool>> newLootModifiers) { lootModifiers = newLootModifiers; }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    public @NotNull ObjectArrayList<ItemStack> apply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (BLACKLIST_TABLES.contains(context.getQueriedLootTableId())) { return generatedLoot; }
 
         ILootParamsMixin lootParams = ((ILootParamsMixin)((LootContextAccessor)context).getParams());
@@ -59,7 +49,7 @@ public class GlobalLootModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

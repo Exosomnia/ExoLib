@@ -1,11 +1,11 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.exosomnia.exolib.mixin.mixins",
-  "refmap": "mixins.exolib.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "refmap": "exolib.mixins.refmap.json",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "LootContextAccessor",
+    "LootContextParamSetsAccessor",
     "LootTableAccessor",
     "LootParamsMixin",
     "LootParamsBuilderMixin",

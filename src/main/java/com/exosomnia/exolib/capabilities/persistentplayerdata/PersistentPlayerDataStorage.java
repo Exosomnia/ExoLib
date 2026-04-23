@@ -1,6 +1,8 @@
 package com.exosomnia.exolib.capabilities.persistentplayerdata;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,15 @@ public class PersistentPlayerDataStorage implements IPersistentPlayerDataStorage
     public void clear() { this.tag = new CompoundTag(); }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
         wrappers.forEach(wrapper -> wrapper.serialize(this));
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) { this.tag = nbt; }
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+        this.tag = tag;
+    }
 
     @Override
     public void addWrapper(PersistentPlayerDataWrapper wrapper) {

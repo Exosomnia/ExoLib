@@ -4,8 +4,8 @@ import com.exosomnia.exolib.networking.PacketHandler;
 import com.exosomnia.exolib.networking.packets.SynchronizeConfigPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class ConfigSynchronizer {
     public void serverConfigSynchronize(PlayerEvent.PlayerLoggedInEvent event) {
         ServerPlayer player = (ServerPlayer)event.getEntity();
         for (SynchronizableConfig config : configs.values()) {
-            PacketHandler.sendToPlayer(new SynchronizeConfigPacket(config), player);
+            PacketHandler.sendToPlayer(player, SynchronizeConfigPacket.of(config));
         }
     }
 }

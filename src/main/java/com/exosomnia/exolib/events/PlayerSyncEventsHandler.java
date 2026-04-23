@@ -3,11 +3,12 @@ package com.exosomnia.exolib.events;
 import com.exosomnia.exolib.ExoLib;
 import com.exosomnia.exolib.utils.EntityTagUtils;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-@Mod.EventBusSubscriber(modid = ExoLib.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+
+@EventBusSubscriber(modid = ExoLib.MODID)
 public class PlayerSyncEventsHandler {
 
     @SubscribeEvent

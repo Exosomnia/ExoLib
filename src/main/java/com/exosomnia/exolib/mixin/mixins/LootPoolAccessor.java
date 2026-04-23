@@ -6,13 +6,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+import java.util.List;
+
 @Mixin(LootPool.class)
 public interface LootPoolAccessor {
 
     @Mutable
     @Accessor("entries")
-    void setEntries(LootPoolEntryContainer[] entries);
+    void setEntries(List<LootPoolEntryContainer> entries);
 
     @Accessor("entries")
-    LootPoolEntryContainer[] getEntries();
+    List<LootPoolEntryContainer> getEntries();
 }

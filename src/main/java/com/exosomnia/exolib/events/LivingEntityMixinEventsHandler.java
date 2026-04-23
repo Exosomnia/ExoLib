@@ -2,11 +2,12 @@ package com.exosomnia.exolib.events;
 
 import com.exosomnia.exolib.ExoLib;
 import com.exosomnia.exolib.mixin.interfaces.ILivingEntityMixin;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 
-@Mod.EventBusSubscriber(modid = ExoLib.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+
+@EventBusSubscriber(modid = ExoLib.MODID)
 public class LivingEntityMixinEventsHandler {
 
     @SubscribeEvent

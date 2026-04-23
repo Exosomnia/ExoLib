@@ -32,9 +32,9 @@ public abstract class ParticleShape {
         sendToPlayers(level, level.players());
     }
     public void sendToPlayers(ServerLevel level, List<ServerPlayer> players) {
-        ParticleShapePacket packet = new ParticleShapePacket(this);
+        ParticleShapePacket packet = ParticleShapePacket.of(this);
         for (ServerPlayer player : players) {
-            if (player.level() == level) { PacketHandler.sendToPlayer(packet, player); }
+            if (player.level() == level) { PacketHandler.sendToPlayer(player, packet); }
         }
     }
 

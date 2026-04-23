@@ -3,8 +3,6 @@ package com.exosomnia.exolib.particles;
 import com.exosomnia.exolib.particles.options.RGBSParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class SpiralParticle extends TextureSheetParticle {
@@ -30,7 +28,6 @@ public class SpiralParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<RGBSParticleOptions> {
         private final SpriteSet sprite;
 
