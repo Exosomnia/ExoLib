@@ -12,7 +12,9 @@
     "LootTableMixin",
     "LootPoolAccessor",
     "LootPoolSingletonContainerAccessor",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "GuiMixin",
+    "GuiAccessor"
   ],
   "client": [],
   "server": [],
